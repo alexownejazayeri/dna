@@ -1,9 +1,9 @@
 {
   "name": "dna",
   "version": "0.1.0",
-  "private": true,
+  "packageManager": "yarn@3.6.0",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 5432",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
