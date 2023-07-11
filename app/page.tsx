@@ -2,6 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
+import { getWebSpeech } from "./utils/getWebSpeech";
 
 const TopNav = () => {
   return (
@@ -68,6 +69,14 @@ const Koalit = () => {
             }}
           >
             Record
+          </button>
+          <button
+            className="px-4 py-1 font-semibold rounded-full border border-orange-200 hover:text-white hover:bg-orange-500 hover:border-transparent focus:outline-none"
+            onClick={() => {
+              getWebSpeech();
+            }}
+          >
+            Get Web Speech
           </button>
           <button
             className="px-4 py-1 font-semibold rounded-full border border-purple-200 hover:text-white hover:bg-purple-500 hover:border-transparent focus:outline-none"
