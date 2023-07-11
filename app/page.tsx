@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-
+import { getTranscription } from './util/getTranscription'
 const TopNav = () => {
   return (
     <div className="flex border-solid border-2 mb-8">
@@ -57,7 +57,7 @@ const Koalit = () => {
     <div className="flex justify-center items-center h-full border-solid border-2">
       <div className="flex flex-col">
         <div id="speech-controls" className="flex w-full content-between">
-          {}
+          { }
           <button
             className="px-4 py-1 font-semibold rounded-full border border-red-200 hover:text-white hover:bg-red-500 hover:border-transparent focus:outline-none"
             onClick={() => {
@@ -97,6 +97,17 @@ const Koalit = () => {
 
               // Creates link to MP3 blob!
               console.log({ audioURL });
+
+              fetch(audioURL)
+                .then(response => response.blob())
+                .then(blob => {
+                  // Store the blob in a variable or use it as needed
+                  getTranscription(blob);
+                })
+                .catch(error => {
+                  console.error('Error fetching the MP3 file:', error);
+                });
+              
             }}
           >
             Stop
