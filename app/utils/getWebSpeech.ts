@@ -1,3 +1,5 @@
+import { calculateScore } from "./calculateScore";
+
 const SpeechRecognition =
   window.SpeechRecognition || window.webkitSpeechRecognition;
 
@@ -26,14 +28,16 @@ export const getWebSpeech = (
   console.log({ recognition });
 
   recognition.onresult = (e: SpeechRecognitionEvent) => {
-    console.log(e.results);
+    console.log(targetText)
+    const result = e.results[0][0].transcript
     // TODO(devin): return a score using a callback?
     // - [ ] check how many words were right
     console.log(targetText || "");
     let numCorrect;
 
     if (scoreManager) {
-      scoreManager(`${numCorrect} / ${e.results.length}`);
+      const score = calculateScore(targetText, result);
+      scoreManager(score)
     }
   };
 };
