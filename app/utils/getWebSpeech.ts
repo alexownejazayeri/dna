@@ -1,11 +1,12 @@
 import { calculateScore } from "./calculateScore";
-
+import {getIncorrectWords} from "./getIncorrectWords"
 const SpeechRecognition =
   window.SpeechRecognition || window.webkitSpeechRecognition;
 
 export const getWebSpeech = (
   targetText?: string,
-  scoreManager?: (scoreString: string) => void
+  scoreManager?: (scoreString: string) => void,
+  correctWordManager?: (indexArray: Array) => void
 ) => {
   let recognizing = false;
 
@@ -33,11 +34,12 @@ export const getWebSpeech = (
     // TODO(devin): return a score using a callback?
     // - [ ] check how many words were right
     console.log(targetText || "");
-    let numCorrect;
 
-    if (scoreManager) {
+    if (scoreManager && correctWordManager) {
       const score = calculateScore(targetText, result);
       scoreManager(score)
+      const incorrectWordArray = getIncorrectWords(targetText, result)
+      correctWordManager(incorrectWordArray)
     }
   };
 };
