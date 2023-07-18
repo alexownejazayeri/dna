@@ -7,6 +7,7 @@ import { Score } from "./Score";
 export const Koalit = () => {
   const [exercisePrompt, setExercisePrompt] = React.useState(getPrompt());
   const [userInput, setUserInput] = React.useState('')
+  const [incorrectWords, setIncorrectWords] = React.useState([])
   let chunks: BlobPart[];
   let mediaRecorder: MediaRecorder;
   const constraints = { audio: true };
@@ -44,7 +45,7 @@ export const Koalit = () => {
         {userInput && (
           <Score score={userInput} />
         )}
-        <Prompt randomPrompt={exercisePrompt} />
+        <Prompt randomPrompt={exercisePrompt} incorrectWords={incorrectWords}/>
         <div id="speech-controls" className="flex w-full justify-center">
           {}
           <button
@@ -61,7 +62,7 @@ export const Koalit = () => {
           <button
             className="px-4 py-1 font-semibold rounded-full border border-orange-200 hover:text-white hover:bg-orange-500 hover:border-transparent focus:outline-none"
             onClick={() => {
-              getWebSpeech(exercisePrompt, setUserInput);
+              getWebSpeech(exercisePrompt, setUserInput, setIncorrectWords);
             }}
           >
             Get Web Speech
